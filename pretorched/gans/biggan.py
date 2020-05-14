@@ -335,7 +335,7 @@ class Generator(nn.Module):
     # already been passed through G.shared to enable easy class-wise
     # interpolation later. If we passed in the one-hot and then ran it through
     # G.shared in this forward function, it would be harder to handle.
-    def forward(self, z, y, embed=False, layer=None):
+    def forward(self, z, y, embed=False):
         if embed:
             y = self.shared(y)
         # If hierarchical, concatenate zs and ys
@@ -353,7 +353,7 @@ class Generator(nn.Module):
 
         # Loop over blocks
         for index, blocklist in enumerate(self.blocks):
-            if index == layer: return h
+            #if index == layer: return h
             # Second inner loop in case block has multiple layers
             for block in blocklist:
                 h = block(h, ys[index])
